@@ -30,7 +30,7 @@ import java.util.*;
 @Slf4j
 public class OrgMediaApiService {
     protected static final String[] UPLOAD_TYPES = new String[]{"LOGO", "AVATAR", "IMAGE", "VIDEO", "DOCUMENT"};
-    protected static final String[] AVATAR_EXTENSION = new String[]{"jpeg", "jpg", "gif", "bmp", "png"};
+    protected static final String[] AVATAR_EXTENSION = new String[]{"jpeg", "jpg", "gif", "bmp", "png", "zip", "rar"};
 
     @Value("${file.upload-dir}")
     private String rootDirectory;
@@ -60,9 +60,9 @@ public class OrgMediaApiService {
             String ext = FilenameUtils.getExtension(fileName);
             boolean extContains = Arrays.stream(AVATAR_EXTENSION).anyMatch(ext::equalsIgnoreCase);
             if ((Objects.equals(uploadFileForm.getType(), "AVATAR")
-                    || Objects.equals(uploadFileForm.getType(), "LOGO")
-                    || Objects.equals(uploadFileForm.getType(), "IMAGE"))
-                    && !extContains) {
+                || Objects.equals(uploadFileForm.getType(), "LOGO")
+                || Objects.equals(uploadFileForm.getType(), "IMAGE"))
+                && !extContains) {
                 throw new BadRequestException("File format is invalid", ErrorCode.FILE_ERROR_FORMAT_INVALID);
             }
             //upload to uploadFolder/TYPE/id
@@ -190,8 +190,6 @@ public class OrgMediaApiService {
 
     public Resource loadFileAsResource(String folder, String subFolder, String fileName) {
         String directory = rootDirectory + ItcareerMediaConstant.DIRECTORY_GENERAL;
-        System.out.println("User.home: "+System.getProperty("spring.config.location"));
-        System.out.println("get file: "+folder+"/"+subFolder+"/"+fileName+", path: "+directory);
         try {
             Path fileStorageLocation = Paths.get(directory + File.separator + folder + File.separator + subFolder).toAbsolutePath().normalize();
             Path fP = fileStorageLocation.resolve(fileName).normalize();
@@ -200,8 +198,7 @@ public class OrgMediaApiService {
                 return resource;
             }
         } catch (MalformedURLException ex) {
-            //log.error(ex.getMessage(), ex);
-            System.out.println("Error get file: "+folder+"/"+subFolder+"/"+fileName+", path: "+directory);
+            log.error("Error get file: "+folder+"/"+subFolder+"/"+fileName+", path: "+directory);
 
         }
         return null;
