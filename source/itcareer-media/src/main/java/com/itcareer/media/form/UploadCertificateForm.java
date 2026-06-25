@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 @ApiModel
 public class UploadCertificateForm {
-  @NotEmpty(message = "username cannot be null")
-  @ApiModelProperty(name = "username", required = true)
-  private String username;
+  @NotEmpty(message = "fullName cannot be null")
+  @ApiModelProperty(name = "fullName", required = true)
+  private String fullName;
   @NotEmpty(message = "simulationTitle cannot be null")
   @ApiModelProperty(name = "simulationTitle", required = true)
   private String simulationTitle;
