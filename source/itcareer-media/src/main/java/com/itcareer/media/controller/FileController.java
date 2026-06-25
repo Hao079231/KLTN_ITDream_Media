@@ -230,7 +230,7 @@ public class FileController extends ABasicController{
             canvas.beginText();
             canvas.setFontAndSize(bf, 32);
             canvas.setColorFill(BaseColor.BLACK);
-            canvas.showTextAligned(PdfContentByte.ALIGN_CENTER, form.getUsername(), 970, 580, 0);
+            canvas.showTextAligned(PdfContentByte.ALIGN_CENTER, form.getFullName(), 970, 580, 0);
             canvas.endText();
 
             // Che placeholder Simulation Name
