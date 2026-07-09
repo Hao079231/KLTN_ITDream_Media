@@ -30,7 +30,7 @@ import java.util.*;
 @Slf4j
 public class OrgMediaApiService {
     protected static final String[] UPLOAD_TYPES = new String[]{"LOGO", "AVATAR", "IMAGE", "VIDEO", "DOCUMENT"};
-    protected static final String[] AVATAR_EXTENSION = new String[]{"jpeg", "jpg", "gif", "bmp", "png", "zip", "rar"};
+    protected static final String[] AVATAR_EXTENSION = new String[]{"jpeg", "jpg", "gif", "bmp", "png", "zip", "rar", "pdf"};
 
     @Value("${file.upload-dir}")
     private String rootDirectory;
