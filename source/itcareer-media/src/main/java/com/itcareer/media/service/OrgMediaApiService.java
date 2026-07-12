@@ -66,8 +66,8 @@ public class OrgMediaApiService {
                 throw new BadRequestException("File format is invalid", ErrorCode.FILE_ERROR_FORMAT_INVALID);
             }
             //upload to uploadFolder/TYPE/id
-            String finalFile = (uploadFileForm.getApp()!=null ? uploadFileForm.getApp() +"_" :"")+ uploadFileForm.getType() + "_" + RandomStringUtils.randomAlphanumeric(10) + "." + ext;
-            String typeFolder = File.separator + uploadFileForm.getType() + File.separator + uploadFileForm.getAccountId();
+            String finalFile = (uploadFileForm.getApp()!=null ? uploadFileForm.getApp() +"_" :"")+ uploadFileForm.getType().toLowerCase(Locale.ROOT) + "_" + RandomStringUtils.randomAlphanumeric(10) + "." + ext;
+            String typeFolder = File.separator + uploadFileForm.getType().toLowerCase(Locale.ROOT) + File.separator + uploadFileForm.getAccountId();
             Path fileStorageLocation;
             String tenantFolder = "";
             fileStorageLocation = Paths.get(rootDirectory + ItcareerMediaConstant.DIRECTORY_GENERAL + typeFolder).toAbsolutePath().normalize();
@@ -191,7 +191,7 @@ public class OrgMediaApiService {
     public Resource loadFileAsResource(String folder, String subFolder, String fileName) {
         String directory = rootDirectory + ItcareerMediaConstant.DIRECTORY_GENERAL;
         try {
-            Path fileStorageLocation = Paths.get(directory + File.separator + folder + File.separator + subFolder).toAbsolutePath().normalize();
+            Path fileStorageLocation = Paths.get(directory + File.separator + folder.toLowerCase(Locale.ROOT) + File.separator + subFolder).toAbsolutePath().normalize();
             Path fP = fileStorageLocation.resolve(fileName).normalize();
             Resource resource = new UrlResource(fP.toUri());
             if (resource.exists()) {
